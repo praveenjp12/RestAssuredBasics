@@ -68,6 +68,7 @@
                         <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <systemProperties>
+                        <!--suppress UnresolvedMavenProperty -->
                         <testng.selenium.endpoint>${testng.selenium.endpoint}</testng.selenium.endpoint>
                     </systemProperties>
                 </configuration>

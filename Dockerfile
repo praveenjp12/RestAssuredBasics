@@ -1,5 +1,5 @@
 # Base image with Java and Maven
-FROM maven:3.9.6-eclipse-temurin-24
+FROM maven:3.9.6-eclipse-temurin-21
 
 # Install Chrome
 RUN apt-get update && apt-get install -y \
