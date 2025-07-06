@@ -15,14 +15,16 @@ jobs:
         run: docker build -t selenium-java .
 
       - name: Run Selenium Tests in Docker
-        run: docker run selenium-java
+        run: |
+          docker run --rm -v ${{ github.workspace }}/target:/app/target selenium-java
+
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: ReportsData
-          path: ./target/allure-results
+          path: target/allure-results
   job2:
     name: reports
     if: always()
