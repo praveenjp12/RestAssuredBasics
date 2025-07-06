@@ -16,3 +16,18 @@ jobs:
 
       - name: Run Selenium Tests in Docker
         run: docker run selenium-java
+
+      - name: Allure Report action from marketplace
+        uses: praveenjp12/cypress-project/allure-report-deploy@main
+        with:
+          allure_results: target/allure-results
+          allure_history: allure-history
+          keep_reports: 2
+  
+      - name: Deploy report to Github Pages
+        if: always()
+        uses: praveenjp12/cypress-project/allure-report-release@main
+        env:
+          PERSONAL_TOKEN: ${{ secrets.MY_TOKEN }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: allure-history
