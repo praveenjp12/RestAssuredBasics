@@ -17,10 +17,35 @@ jobs:
       - name: Run Selenium Tests in Docker
         run: docker run selenium-java
 
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ReportsData
+          path: target/allure-results
+  job2:
+    name: reports
+    if: always()
+    runs-on: ubuntu-latest
+    needs: selenium-java
+    steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ReportsData
+          path: allure-results 
+      - name: Get Allure history
+        uses: actions/checkout@v2
+        if: always()
+        continue-on-error: true
+        with:
+            ref: gh-pages
+            path: gh-pages
+         
       - name: Allure Report action from marketplace
         uses: praveenjp12/cypress-project/allure-report-deploy@main
         with:
-          allure_results: target/allure-results
+          allure_results: allure-results
           allure_history: allure-history
           keep_reports: 2
   
